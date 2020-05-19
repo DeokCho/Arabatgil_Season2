@@ -9,11 +9,11 @@
 
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" v-model="userid" placeholder="Enter Username" name="userid" required>
+            <input type="text" @keyup.enter="moveToPasswd" v-model="userid" placeholder="Enter Username" name="userid" required>
             <h3>입력한 아이디 : {{userid}}</h3>
 
             <label><b>Password</b></label>
-            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+            <input type="password" @keyup.enter="login" v-model="password" placeholder="Enter Password" name="password" required>
             <h3>입력한 패스워드 : {{password}}</h3>
 
             <button @click="login" type="submit">Login</button>
@@ -34,7 +34,6 @@
 
 <script>
 
-    import {mapActions} from 'vuex'
     export default {
         data(){
             return {
@@ -42,9 +41,11 @@
                 password : ''
             }
         },
-        methods: mapActions([
-            'login'
-        ])
+        methods: {
+            moveToPasswd(){
+                document.getElementById('password').focus()
+            }
+        }
 
     }
 </script>
