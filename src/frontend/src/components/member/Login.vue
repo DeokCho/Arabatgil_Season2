@@ -9,12 +9,15 @@
 
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input type="text" v-model="userid" placeholder="Enter Username" name="userid" required>
+            <h3>입력한 아이디 : {{userid}}</h3>
 
             <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+            <h3>입력한 패스워드 : {{password}}</h3>
 
-            <router-link to="/calculator"><button type="submit">Login</button></router-link>
+            <button @click="login" type="submit">Login</button>
+<!--            <router-link to="/calculator"><button type="submit">Login</button></router-link>-->
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
@@ -30,8 +33,19 @@
 </template>
 
 <script>
+
+    import {mapActions} from 'vuex'
     export default {
-        name: "Login"
+        data(){
+            return {
+                userid :'',
+                password : ''
+            }
+        },
+        methods: mapActions([
+            'login'
+        ])
+
     }
 </script>
 
