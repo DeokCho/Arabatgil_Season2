@@ -2,22 +2,19 @@
     <div>
         <h2>Login Form</h2>
 
-    <form method="post">
+
         <div class="imgcontainer">
             <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
-            <label><b>Username</b></label>
-            <input type="text" @keyup.enter="moveToPasswd" v-model="userid" placeholder="Enter Username" name="userid" required>
+            <label ></label>
+            <input type="text"  @keyup.enter="moveToPasswd"  v-model="userid" placeholder="Enter Username" required>
             <h3>입력한 아이디 : {{userid}}</h3>
-
-            <label><b>Password</b></label>
-            <input type="password" @keyup.enter="login" v-model="password" placeholder="Enter Password" name="password" required>
-            <h3>입력한 패스워드 : {{password}}</h3>
-
-            <button @click="login" type="submit">Login</button>
-<!--            <router-link to="/calculator"><button type="submit">Login</button></router-link>-->
+            <label ><b>Password</b></label>
+            <input type="password" @keyup.enter="login"   v-model="passwd" placeholder="Enter Password" id="passwd" required>
+            <h3>입력한 비번 : {{passwd}}</h3>
+            <button @click="login"  type="submit">Login</button>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
@@ -27,28 +24,92 @@
             <button type="button" class="cancelbtn">Cancel</button>
             <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
-    </form>
-    </div>
 
+    </div>
 </template>
 
 <script>
-
+    import {mapState} from 'vuex'
     export default {
+        computed : {
+            ...mapState(
+                {fail: state => state.player.fail,
+                    auth : state => state.player.auth
+                }
+            )
+        },
         data(){
             return {
-                userid :'',
-                password : ''
+                userid : '',
+                passwd : ''
             }
         },
         methods: {
+            login(){
+                this.$store.dispatch('player/login',{playerId: this.userid, backNo: this.passwd})
+            },
             moveToPasswd(){
-                document.getElementById('password').focus()
+                document.getElementById('passwd').focus()
             }
         }
-
     }
 </script>
+
+<!--<template>-->
+<!--    <div>-->
+<!--        <h2>Login Form</h2>-->
+
+<!--    <form method="post">-->
+<!--        <div class="imgcontainer">-->
+<!--            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">-->
+<!--        </div>-->
+
+<!--        <div class="container">-->
+<!--            <label><b>Username</b></label>-->
+<!--            <input type="text" @keyup.enter="moveToPasswd" v-model="userid" placeholder="Enter Username" name="userid" required>-->
+<!--            <h3>입력한 아이디 : {{userid}}</h3>-->
+
+<!--            <label><b>Password</b></label>-->
+<!--            <input type="password" @keyup.enter="login" v-model="password" placeholder="Enter Password" name="password" required>-->
+<!--            <h3>입력한 패스워드 : {{password}}</h3>-->
+
+<!--            <button @click="login" type="submit">Login</button>-->
+<!--&lt;!&ndash;            <router-link to="/calculator"><button type="submit">Login</button></router-link>&ndash;&gt;-->
+<!--            <label>-->
+<!--                <input type="checkbox" checked="checked" name="remember"> Remember me-->
+<!--            </label>-->
+<!--        </div>-->
+
+<!--        <div class="container" style="background-color:#f1f1f1">-->
+<!--            <button type="button" class="cancelbtn">Cancel</button>-->
+<!--            <span class="psw">Forgot <a href="#">password?</a></span>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    </div>-->
+
+<!--</template>-->
+
+<!--<script>-->
+
+<!--    export default {-->
+<!--        data(){-->
+<!--            return {-->
+<!--                userid :'',-->
+<!--                password : ''-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            login(){-->
+<!--                this.$store.dispatch('player/login',-->
+<!--                    {playerId : this.userid, backNo : this.passwd})-->
+<!--            },-->
+<!--            moveToPasswd(){-->
+<!--                document.getElementById('password').focus()-->
+<!--            }-->
+<!--        }-->
+
+<!--    }-->
+<!--</script>-->
 
 <style scoped>
     body {font-family: Arial, Helvetica, sans-serif;}
